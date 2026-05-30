@@ -14,28 +14,18 @@
     
     <style>
         :root {
-            --bg: #0a0e17;
-            --bg-card: rgba(255,255,255,0.03);
-            --bg-hover: rgba(255,255,255,0.06);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --accent: #22d3ee;
-            --text: #ffffff;
-            --text-muted: #94a3b8;
-            --border: rgba(255,255,255,0.08);
-            --gradient: linear-gradient(135deg, #6366f1, #22d3ee);
-            --shadow: 0 20px 40px rgba(0,0,0,0.4);
-            --radius: 20px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg: #0a0e17; --bg-card: rgba(255,255,255,0.03); --bg-hover: rgba(255,255,255,0.06);
+            --primary: #6366f1; --primary-glow: rgba(99, 102, 241, 0.4); --accent: #22d3ee;
+            --text: #ffffff; --text-muted: #94a3b8; --border: rgba(255,255,255,0.08);
+            --gradient: linear-gradient(135deg, #6366f1, #22d3ee); --shadow: 0 20px 40px rgba(0,0,0,0.4);
+            --radius: 20px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
         html { scroll-behavior: smooth; scroll-padding-top: 100px; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
         h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.2; }
         a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; }
+        ul { list-style: none; } img { max-width: 100%; display: block; }
         button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -92,7 +82,7 @@
         .about-stat .num { font-size: 2rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .about-stat .label { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; }
 
-        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 40px 30px; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; transform-style: preserve-3d; }
+        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 40px 30px; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; transform-style: preserve-3d; cursor: pointer; }
         .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
         .service-card:hover::before { transform: scaleX(1); }
         .service-card:hover { transform: translateY(-12px) rotateX(3deg) rotateY(-3deg); border-color: rgba(99,102,241,0.5); box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
@@ -263,8 +253,7 @@
 <body>
 
     <div class="scroll-progress" id="scrollProgress"></div>
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
+    <div class="glow glow-1"></div><div class="glow glow-2"></div>
 
     <header id="header">
         <div class="container nav-flex">
@@ -319,16 +308,41 @@
         </div>
     </section>
 
+    <!-- SERVICES SECTION - NOW CLICKABLE! -->
     <section class="section" id="services" style="background:rgba(255,255,255,0.02);">
         <div class="container">
             <div class="section-title text-center fade-up"><h2>Layanan Kami</h2><p>Solusi digital lengkap untuk kebutuhan bisnis Anda</p></div>
             <div class="grid grid-3">
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-building"></i></div><h3>Corporate Website</h3><p>Website perusahaan dengan desain profesional untuk meningkatkan branding dan kredibilitas bisnis.</p></div>
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-cogs"></i></div><h3>Custom Web App</h3><p>Pengembangan aplikasi web sesuai kebutuhan bisnis dan operasional perusahaan.</p></div>
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-shopping-cart"></i></div><h3>E-Commerce</h3><p>Solusi toko online modern dengan sistem pembayaran, manajemen produk, dan dashboard admin.</p></div>
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-paint-brush"></i></div><h3>UI/UX Design</h3><p>Perancangan antarmuka modern yang fokus pada kenyamanan dan pengalaman pengguna.</p></div>
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-bolt"></i></div><h3>Optimization</h3><p>Optimasi performa website untuk kecepatan akses, SEO, dan stabilitas sistem.</p></div>
-                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-tools"></i></div><h3>Maintenance</h3><p>Layanan maintenance, monitoring, dan technical support secara berkala.</p></div>
+                <div class="service-card fade-up" onclick="selectService('Corporate Website')">
+                    <div class="icon-box"><i class="fas fa-building"></i></div>
+                    <h3>Corporate Website</h3>
+                    <p>Website perusahaan dengan desain profesional untuk meningkatkan branding dan kredibilitas bisnis.</p>
+                </div>
+                <div class="service-card fade-up" onclick="selectService('Web Application')">
+                    <div class="icon-box"><i class="fas fa-cogs"></i></div>
+                    <h3>Custom Web App</h3>
+                    <p>Pengembangan aplikasi web sesuai kebutuhan bisnis dan operasional perusahaan.</p>
+                </div>
+                <div class="service-card fade-up" onclick="selectService('E-Commerce')">
+                    <div class="icon-box"><i class="fas fa-shopping-cart"></i></div>
+                    <h3>E-Commerce</h3>
+                    <p>Solusi toko online modern dengan sistem pembayaran, manajemen produk, dan dashboard admin.</p>
+                </div>
+                <div class="service-card fade-up" onclick="selectService('UI/UX Design')">
+                    <div class="icon-box"><i class="fas fa-paint-brush"></i></div>
+                    <h3>UI/UX Design</h3>
+                    <p>Perancangan antarmuka modern yang fokus pada kenyamanan dan pengalaman pengguna.</p>
+                </div>
+                <div class="service-card fade-up" onclick="selectService('Optimization')">
+                    <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                    <h3>Optimization</h3>
+                    <p>Optimasi performa website untuk kecepatan akses, SEO, dan stabilitas sistem.</p>
+                </div>
+                <div class="service-card fade-up" onclick="selectService('Maintenance & Support')">
+                    <div class="icon-box"><i class="fas fa-tools"></i></div>
+                    <h3>Maintenance</h3>
+                    <p>Layanan maintenance, monitoring, dan technical support secara berkala.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -426,7 +440,7 @@
                     <form id="contactForm" onsubmit="handleContactSubmit(event)">
                         <div class="form-group"><label for="name"><i class="fas fa-user" style="margin-right:8px;color:var(--primary);"></i>Nama Lengkap</label><input type="text" id="name" placeholder="Masukkan nama Anda" required></div>
                         <div class="form-group"><label for="email"><i class="fas fa-envelope" style="margin-right:8px;color:var(--primary);"></i>Email</label><input type="email" id="email" placeholder="email@contoh.com" required></div>
-                        <div class="form-group"><label for="service"><i class="fas fa-briefcase" style="margin-right:8px;color:var(--primary);"></i>Jenis Layanan <span style="color:#ef4444;">*</span></label><select id="service" required><option value="">Pilih layanan...</option><option value="Corporate Website">🏢 Corporate Website</option><option value="E-Commerce">🛒 E-Commerce</option><option value="Web Application">⚙️ Web Application</option><option value="Landing Page">🎯 Landing Page</option><option value="UI/UX Design">🎨 UI/UX Design</option><option value="Lainnya">📌 Lainnya</option></select></div>
+                        <div class="form-group"><label for="service"><i class="fas fa-briefcase" style="margin-right:8px;color:var(--primary);"></i>Jenis Layanan <span style="color:#ef4444;">*</span></label><select id="service" required><option value="">Pilih layanan...</option><option value="Corporate Website">🏢 Corporate Website</option><option value="E-Commerce">🛒 E-Commerce</option><option value="Web Application">⚙️ Web Application</option><option value="Landing Page">🎯 Landing Page</option><option value="UI/UX Design">🎨 UI/UX Design</option><option value="Maintenance & Support">🔧 Maintenance & Support</option><option value="Optimization">⚡ Optimization</option><option value="Lainnya">📌 Lainnya</option></select></div>
                         <div class="form-group"><label for="budget"><i class="fas fa-money-bill-wave" style="margin-right:8px;color:var(--primary);"></i>Estimasi Budget</label><select id="budget"><option value="">Pilih budget (opsional)...</option><option value="< Rp 2jt">🟢 < Rp 2.000.000</option><option value="Rp 2-5jt">🟡 Rp 2jt - 5jt</option><option value="Rp 5-10jt">🟠 Rp 5jt - 10jt</option><option value="> Rp 10jt">🔴 > Rp 10.000.000</option></select></div>
                         <div class="form-group"><label for="message"><i class="fas fa-comment-alt" style="margin-right:8px;color:var(--primary);"></i>Pesan</label><textarea id="message" placeholder="Ceritakan project Anda..." required></textarea></div>
                         <button type="submit" class="form-submit" id="submitBtn"><i class="fab fa-whatsapp"></i> Kirim via WhatsApp</button>
@@ -450,6 +464,26 @@
             { title: "AeroGear Launch", subtitle: "Product Landing Page", desc: "Landing page produk premium dengan animasi scroll yang memukau, fokus pada konversi penjualan untuk campaign peluncuran produk baru.", gradient: "linear-gradient(135deg, #064e3b, #10b981)", icon: "fas fa-rocket", category: "marketing", badgeClass: "badge-marketing", year: "2024", features: ["Scroll-triggered Animations (GSAP)", "A/B Testing Ready Structure", "Lead Capture Form dengan Validasi", "Fast Loading (< 1.5s)"], tech: ["Vue.js", "GSAP", "Vercel"], demo: "#" },
             { title: "FashionHub Store", subtitle: "E-Commerce Platform", desc: "Platform toko online fashion modern dengan pengalaman belanja yang seamless. Dilengkapi sistem inventory, payment gateway, dan dashboard admin.", gradient: "linear-gradient(135deg, #831843, #ec4899)", icon: "fas fa-shopping-bag", category: "ecommerce", badgeClass: "badge-ecommerce", year: "2025", features: ["Product Catalog dengan Filter & Search", "Shopping Cart & Checkout Flow", "Payment Gateway Integration (Midtrans)", "Order Management Dashboard"], tech: ["Laravel", "MySQL", "Midtrans"], demo: "#" }
         ];
+
+        // ===== NEW FUNCTION: Select Service & Scroll to Contact =====
+        function selectService(serviceName) {
+            const select = document.getElementById('service');
+            select.value = serviceName;
+            
+            // Scroll to contact section
+            const contactSection = document.getElementById('contact');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            
+            // Show toast notification
+            showToast(`✅ "${serviceName}" dipilih! Silakan lengkapi form di bawah.`, 'success');
+            
+            // Focus on name input for better UX
+            setTimeout(() => {
+                document.getElementById('name')?.focus();
+            }, 800);
+        }
 
         function renderPortfolio(filter) {
             filter = filter || 'all';
