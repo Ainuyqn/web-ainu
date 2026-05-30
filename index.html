@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusDev — Professional Web Development Agency</title>
+    <meta name="description" content="Professional web development agency specializing in corporate websites, e-commerce, and custom web applications.">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #0a0e17;
+            --bg-card: rgba(255,255,255,0.03);
+            --bg-hover: rgba(255,255,255,0.06);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #22d3ee;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,0.08);
+            --gradient: linear-gradient(135deg, #6366f1, #22d3ee);
+            --shadow: 0 20px 40px rgba(0,0,0,0.4);
+            --radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; line-height: 1.2; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); cursor: pointer; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 100px 0; position: relative; }
+        .text-center { text-align: center; }
+        .grid { display: grid; gap: 30px; }
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); position: relative; overflow: hidden; }
+        .btn-primary { background: var(--gradient); color: white; box-shadow: 0 10px 30px var(--primary-glow); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: white; }
+        .btn-outline:hover { background: var(--bg-hover); border-color: var(--primary); }
+        .btn-large { padding: 18px 36px; font-size: 1.05rem; }
+
+        .section-title { margin-bottom: 60px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .section-title h2 { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
+        .section-title p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .glow { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); opacity: 0.25; z-index: -1; pointer-events: none; animation: float-glow 20s infinite ease-in-out; }
+        .glow-1 { top: -200px; left: -200px; background: var(--primary); }
+        .glow-2 { bottom: -200px; right: -200px; background: var(--accent); animation-delay: 10s; }
+        @keyframes float-glow { 0%, 100% { transform: translate(0, 0) scale(1); } 33% { transform: translate(30px, -30px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } }
+
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 20px 0; background: rgba(10,14,23,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: var(--transition); }
+        header.scrolled { background: rgba(10,14,23,0.98); padding: 15px 0; box-shadow: 0 5px 30px rgba(0,0,0,0.3); }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.6rem; font-weight: 800; font-family: 'Space Grotesk', sans-serif; }
+        .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-links a { color: var(--text-muted); font-weight: 500; font-size: 0.95rem; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--gradient); transition: width 0.3s; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .nav-cta { padding: 12px 24px; font-size: 0.9rem; }
+        .mobile-toggle { display: none; font-size: 1.5rem; color: white; }
+
+        .hero { min-height: 80vh; padding-top: 160px; text-align: center; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px; background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); border-radius: 50px; color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 28px; }
+        
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 18px; line-height: 1.8; }
+        .about-visual { position: relative; perspective: 1000px; }
+        .floating-icon { position: absolute; width: 50px; height: 50px; background: var(--bg-hover); border: 1px solid var(--border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; animation: float-icon 4s ease-in-out infinite; box-shadow: 0 10px 20px rgba(0,0,0,0.3); z-index: 2; }
+        .fi-1 { top: -20px; left: -20px; animation-delay: 0s; }
+        .fi-2 { top: 30%; right: -15px; animation-delay: 1s; }
+        .fi-3 { bottom: -15px; left: 20%; animation-delay: 2s; }
+        @keyframes float-icon { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-12px) rotate(5deg); } }
+        .about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .about-stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; transition: var(--transition); cursor: default; }
+        .about-stat:hover { transform: translateY(-8px) scale(1.03); border-color: var(--primary); background: var(--bg-hover); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        .about-stat .num { font-size: 2rem; font-weight: 800; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .about-stat .label { font-size: 0.85rem; color: var(--text-muted); margin-top: 5px; }
+
+        .service-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 40px 30px; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; transform-style: preserve-3d; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover { transform: translateY(-12px) rotateX(3deg) rotateY(-3deg); border-color: rgba(99,102,241,0.5); box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
+        .service-card .icon-box { width: 70px; height: 70px; background: var(--bg-hover); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 25px; transition: all 0.4s; border: 1px solid var(--border); }
+        .service-card:hover .icon-box { background: var(--gradient); border-color: transparent; transform: scale(1.1) rotate(-5deg); box-shadow: 0 10px 25px var(--primary-glow); }
+        .service-card h3 { font-size: 1.25rem; margin-bottom: 12px; transition: color 0.3s; }
+        .service-card:hover h3 { color: white; }
+        .service-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; }
+
+        .filter-tabs { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 50px; padding: 6px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 50px; width: fit-content; margin-left: auto; margin-right: auto; }
+        .filter-tab { padding: 10px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); cursor: pointer; transition: var(--transition); border: none; }
+        .filter-tab:hover { color: white; background: var(--bg-hover); }
+        .filter-tab.active { background: var(--gradient); color: white; box-shadow: 0 4px 15px var(--primary-glow); }
+        
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .portfolio-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; transition: var(--transition); cursor: pointer; position: relative; display: flex; flex-direction: column; }
+        .portfolio-card:hover { transform: translateY(-12px); border-color: rgba(99,102,241,0.5); box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.2); }
+        
+        .portfolio-image { position: relative; height: 260px; overflow: hidden; }
+        .portfolio-image .gradient-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 5rem; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .portfolio-card:hover .gradient-bg { transform: scale(1.1); }
+        .grid-pattern { position: absolute; inset: 0; opacity: 0.1; background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px; }
+        
+        .image-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,14,23,0.9) 0%, rgba(10,14,23,0.4) 50%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 25px; opacity: 0; transition: opacity 0.4s; }
+        .portfolio-card:hover .image-overlay { opacity: 1; }
+        .image-overlay .view-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 60px; height: 60px; border-radius: 50%; background: white; color: #0a0e17; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .portfolio-card:hover .image-overlay .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        
+        .float-badge { position: absolute; top: 20px; left: 20px; padding: 6px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; z-index: 2; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .badge-corporate { background: rgba(59, 130, 246, 0.3); color: #93c5fd; }
+        .badge-webapp { background: rgba(168, 85, 247, 0.3); color: #d8b4fe; }
+        .badge-marketing { background: rgba(16, 185, 129, 0.3); color: #6ee7b7; }
+        .badge-ecommerce { background: rgba(236, 72, 153, 0.3); color: #f9a8d4; }
+        
+        .portfolio-content { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+        .portfolio-content h3 { font-size: 1.3rem; margin-bottom: 10px; transition: color 0.3s; }
+        .portfolio-card:hover .portfolio-content h3 { color: var(--primary); }
+        .portfolio-content p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px; flex: 1; }
+        .tech-stack { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tech-pill { padding: 5px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; font-size: 0.78rem; color: var(--text-muted); transition: all 0.3s; }
+        .portfolio-card:hover .tech-pill { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.3); color: #a5b4fc; }
+        .portfolio-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 20px; border-top: 1px solid var(--border); }
+        .portfolio-footer .year { font-size: 0.85rem; color: var(--text-muted); }
+        .portfolio-footer .actions { display: flex; gap: 8px; }
+        .action-btn { width: 40px; height: 40px; border-radius: 10px; background: var(--bg-hover); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 1rem; transition: var(--transition); border: 1px solid var(--border); }
+        .action-btn:hover { background: var(--primary); color: white; border-color: var(--primary); transform: scale(1.1); }
+
+        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; }
+        .process-step { position: relative; padding: 30px 20px; text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: 0.3s; }
+        .process-step:hover { transform: translateY(-5px); border-color: var(--primary); background: var(--bg-hover); }
+        .step-num { font-size: 3.5rem; font-weight: 900; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.3; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); }
+        .process-step h4 { font-size: 1.15rem; margin: 25px 0 12px; position: relative; }
+        .process-step p { color: var(--text-muted); font-size: 0.9rem; position: relative; }
+
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 15px; overflow: hidden; transition: all 0.3s; position: relative; }
+        .faq-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--gradient); transform: scaleY(0); transition: transform 0.3s; transform-origin: top; }
+        .faq-item:hover { border-color: rgba(99,102,241,0.3); background: var(--bg-hover); }
+        .faq-item.active { border-color: var(--primary); background: rgba(99,102,241,0.05); }
+        .faq-item.active::before { transform: scaleY(1); }
+        .faq-question { width: 100%; padding: 22px 25px; display: flex; justify-content: space-between; align-items: center; color: white; font-size: 1.05rem; font-weight: 500; text-align: left; transition: 0.3s; position: relative; }
+        .faq-item.active .faq-question { color: var(--primary); }
+        .faq-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-hover); display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); flex-shrink: 0; }
+        .faq-item.active .faq-icon { transform: rotate(135deg); background: var(--primary); color: white; box-shadow: 0 5px 15px var(--primary-glow); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s; color: var(--text-muted); padding: 0 25px; opacity: 0; }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 0 25px 22px; opacity: 1; }
+
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .contact-info { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; }
+        .contact-info h3 { font-size: 1.8rem; margin-bottom: 20px; }
+        .contact-info > p { color: var(--text-muted); margin-bottom: 30px; }
+        .contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; padding: 20px; background: var(--bg-hover); border-radius: 12px; transition: 0.3s; }
+        .contact-item:hover { transform: translateX(5px); background: rgba(99,102,241,0.1); }
+        .contact-item .icon { width: 50px; height: 50px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+        .contact-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .contact-item p { color: var(--text-muted); font-size: 0.95rem; }
+        .contact-item a { color: var(--accent); transition: 0.3s; }
+        .contact-item a:hover { color: white; }
+        
+        .contact-form { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 500; color: white; font-size: 0.95rem; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px 18px; background: var(--bg-hover); border: 1px solid var(--border); border-radius: 12px; color: white; font-size: 1rem; font-family: inherit; transition: 0.3s; appearance: none; -webkit-appearance: none; }
+        .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-size: 20px; }
+        .form-group select option { background: #1e293b; color: white; padding: 12px; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); outline: none; background: rgba(255,255,255,0.08); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-submit { width: 100%; padding: 16px; background: var(--gradient); color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .form-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--primary-glow); }
+        .form-submit.loading { opacity: 0.7; cursor: not-allowed; }
+        .form-submit.loading i { animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s; }
+        .modal.active { display: flex; opacity: 1; }
+        .modal-content { background: #151a2a; border: 1px solid var(--border); border-radius: 24px; max-width: 800px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; transform: scale(0.9) translateY(20px); transition: transform 0.3s; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+        .modal.active .modal-content { transform: scale(1) translateY(0); }
+        .modal-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white; transition: 0.3s; z-index: 10; }
+        .modal-close:hover { background: var(--primary); transform: rotate(90deg) scale(1.1); }
+        .modal-header { height: 250px; position: relative; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+        .modal-body { padding: 35px; }
+        .modal-body h3 { font-size: 2rem; margin-bottom: 15px; }
+        .modal-body > p { color: var(--text-muted); margin-bottom: 30px; line-height: 1.8; font-size: 1.05rem; }
+        .modal-features ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; list-style: none; padding: 0; }
+        .modal-features li { color: var(--text-muted); font-size: 0.95rem; display: flex; align-items: center; gap: 10px; padding: 10px 15px; background: var(--bg-card); border-radius: 8px; margin-bottom: 8px; }
+        .modal-features li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+        .modal-tech .tech-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+        .modal-tech .tech-pill { padding: 8px 16px; background: var(--bg-hover); border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; color: var(--text-muted); }
+        .modal-actions { display: flex; gap: 15px; flex-wrap: wrap; padding-top: 25px; border-top: 1px solid var(--border); margin-top: 30px; }
+        .modal-actions .btn { flex: 1; min-width: 200px; }
+
+        .cta-box { background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(34,211,238,0.1)); border: 1px solid rgba(99,102,241,0.3); border-radius: var(--radius); padding: 80px 40px; text-align: center; position: relative; overflow: hidden; }
+        .cta-box::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.15), transparent 50%); animation: pulse-cta 4s infinite; }
+        @keyframes pulse-cta { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.1); } }
+        .cta-box h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 20px; position: relative; }
+        .cta-box p { color: var(--text-muted); margin-bottom: 35px; max-width: 600px; margin-left: auto; margin-right: auto; position: relative; }
+        .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
+        
+        footer { border-top: 1px solid var(--border); padding: 60px 0 30px; background: rgba(10,14,23,0.5); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand .logo { font-size: 1.5rem; margin-bottom: 20px; display: block; }
+        .footer-brand p { color: var(--text-muted); max-width: 300px; }
+        .footer-col h4 { margin-bottom: 20px; font-size: 1.05rem; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col a { color: var(--text-muted); }
+        .footer-col a:hover { color: var(--primary); }
+        .footer-contact { color: var(--text-muted); margin-top: 10px; display: flex; align-items: center; gap: 8px; }
+        .footer-contact:hover { color: var(--accent); }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
+
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--gradient); z-index: 1001; width: 0%; transition: width 0.1s; }
+        .wa-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); z-index: 999; transition: 0.3s; animation: wa-pulse 2s infinite; }
+        .wa-float:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5); }
+        @keyframes wa-pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); } 70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+        .wa-tooltip { position: absolute; right: 70px; top: 50%; transform: translateY(-50%); background: white; color: #0a0e17; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; }
+        .wa-float:hover .wa-tooltip { opacity: 1; right: 75px; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--bg); border: 1px solid var(--border); color: white; padding: 16px 28px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); z-index: 3000; opacity: 0; transition: 0.3s; display: flex; align-items: center; gap: 12px; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { border-left: 4px solid #22c55e; }
+        .toast.error { border-left: 4px solid #ef4444; }
+        .toast i { font-size: 1.2rem; }
+        .toast.success i { color: #22c55e; }
+        .toast.error i { color: #ef4444; }
+        
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 992px) { 
+            .about-grid { grid-template-columns: 1fr; } 
+            .about-visual { margin-top: 40px; } 
+            .footer-grid { grid-template-columns: 1fr 1fr; } 
+            .contact-wrapper { grid-template-columns: 1fr; } 
+            .modal-features ul { grid-template-columns: 1fr; } 
+            .portfolio-grid { max-width: 100%; grid-template-columns: 1fr; } 
+        }
+        @media (max-width: 768px) { 
+            .nav-links { position: fixed; top: 80px; left: 0; right: 0; background: var(--bg); flex-direction: column; padding: 30px; border-bottom: 1px solid var(--border); display: none; } 
+            .nav-links.active { display: flex; } 
+            .mobile-toggle { display: block; } 
+            .hero-buttons { flex-direction: column; align-items: center; } 
+            .footer-grid { grid-template-columns: 1fr; text-align: center; } 
+            .cta-buttons { flex-direction: column; align-items: center; } 
+            .wa-float { bottom: 20px; right: 20px; width: 55px; height: 55px; font-size: 1.5rem; } 
+            .wa-tooltip { display: none; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <header id="header">
+        <div class="container nav-flex">
+            <a href="#home" class="logo">Nexus<span>Dev</span></a>
+            <button class="mobile-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <nav class="nav-links" id="navLinks">
+                <a href="#home" onclick="setActiveNav(this)">Home</a>
+                <a href="#about" onclick="setActiveNav(this)">About</a>
+                <a href="#services" onclick="setActiveNav(this)">Services</a>
+                <a href="#portfolio" onclick="setActiveNav(this)">Portfolio</a>
+                <a href="#process" onclick="setActiveNav(this)">Process</a>
+                <a href="#faq" onclick="setActiveNav(this)">FAQ</a>
+                <a href="#contact" class="btn btn-primary nav-cta" onclick="setActiveNav(this)">Get Started</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <span class="hero-badge fade-up"><i class="fas fa-sparkles"></i> Professional Web Development Agency</span>
+            <h1 class="fade-up" style="font-size:clamp(2rem,5vw,3.5rem);margin-bottom:20px;">Transforming Ideas Into <span style="background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Professional Digital Experiences</span></h1>
+            <p class="fade-up" style="color:var(--text-muted);margin-bottom:30px;max-width:600px;margin-left:auto;margin-right:auto;">Kami membantu perusahaan, startup, dan bisnis modern membangun website berkualitas tinggi dengan desain premium, performa optimal, dan teknologi terkini.</p>
+            <div class="fade-up" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:80px;">
+                <a href="#contact" class="btn btn-primary btn-large"><i class="fas fa-rocket"></i> Mulai Konsultasi</a>
+                <a href="#portfolio" class="btn btn-outline btn-large"><i class="fas fa-eye"></i> Lihat Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>Tentang Kami</h2><p>Professional Digital Solutions For Modern Businesses</p></div>
+            <div class="about-grid">
+                <div class="about-text fade-up">
+                    <p>NexusDev adalah tim profesional di bidang web development dan digital solutions yang berfokus pada kualitas, performa, dan pengalaman pengguna.</p>
+                    <p>Kami menggabungkan desain modern dengan teknologi terbaru untuk menciptakan website yang cepat, aman, responsif, dan scalable.</p>
+                    <p>Setiap project dikerjakan dengan standar profesional untuk memastikan website tidak hanya menarik secara visual, tetapi juga efektif dalam mendukung kebutuhan bisnis.</p>
+                    <a href="#services" class="btn btn-outline" style="margin-top:15px;"><i class="fas fa-arrow-right"></i> Lihat Layanan Kami</a>
+                </div>
+                <div class="about-visual fade-up">
+                    <div class="floating-icon fi-1"><i class="fas fa-code"></i></div>
+                    <div class="floating-icon fi-2"><i class="fas fa-palette"></i></div>
+                    <div class="floating-icon fi-3"><i class="fas fa-mobile-alt"></i></div>
+                    <div class="about-cards">
+                        <div class="about-stat"><div class="num">100%</div><div class="label">Quality Assurance</div></div>
+                        <div class="about-stat"><div class="num">24/7</div><div class="label">Monitoring System</div></div>
+                        <div class="about-stat"><div class="num">5+</div><div class="label">Years Experience</div></div>
+                        <div class="about-stat"><div class="num">50+</div><div class="label">Projects Delivered</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services" style="background:rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>Layanan Kami</h2><p>Solusi digital lengkap untuk kebutuhan bisnis Anda</p></div>
+            <div class="grid grid-3">
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-building"></i></div><h3>Corporate Website</h3><p>Website perusahaan dengan desain profesional untuk meningkatkan branding dan kredibilitas bisnis.</p></div>
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-cogs"></i></div><h3>Custom Web App</h3><p>Pengembangan aplikasi web sesuai kebutuhan bisnis dan operasional perusahaan.</p></div>
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-shopping-cart"></i></div><h3>E-Commerce</h3><p>Solusi toko online modern dengan sistem pembayaran, manajemen produk, dan dashboard admin.</p></div>
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-paint-brush"></i></div><h3>UI/UX Design</h3><p>Perancangan antarmuka modern yang fokus pada kenyamanan dan pengalaman pengguna.</p></div>
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-bolt"></i></div><h3>Optimization</h3><p>Optimasi performa website untuk kecepatan akses, SEO, dan stabilitas sistem.</p></div>
+                <div class="service-card fade-up"><div class="icon-box"><i class="fas fa-tools"></i></div><h3>Maintenance</h3><p>Layanan maintenance, monitoring, dan technical support secara berkala.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="portfolio">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>Portfolio</h2><p>Selected Projects</p></div>
+            <div class="filter-tabs fade-up">
+                <button class="filter-tab active" onclick="filterPortfolio('all', this)">All Projects</button>
+                <button class="filter-tab" onclick="filterPortfolio('corporate', this)">Corporate</button>
+                <button class="filter-tab" onclick="filterPortfolio('webapp', this)">Web App</button>
+                <button class="filter-tab" onclick="filterPortfolio('ecommerce', this)">E-Commerce</button>
+                <button class="filter-tab" onclick="filterPortfolio('marketing', this)">Marketing</button>
+            </div>
+            <div class="portfolio-grid" id="portfolioGrid"></div>
+        </div>
+    </section>
+
+    <div id="projectModal" class="modal" onclick="if(event.target===this) closeModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-header" id="modalPreview"></div>
+            <div class="modal-body">
+                <h3 id="modalTitle">Project Title</h3>
+                <p id="modalDesc">Project description.</p>
+                <div class="modal-features">
+                    <h4><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 8px;"></i>Key Features</h4>
+                    <ul id="modalFeatures"></ul>
+                </div>
+                <div class="modal-tech">
+                    <h4><i class="fas fa-code" style="color: var(--primary); margin-right: 8px;"></i>Technologies</h4>
+                    <div class="tech-pills" id="modalTech"></div>
+                </div>
+                <div class="modal-actions">
+                    <a href="#" id="modalDemo" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    <a href="#contact" class="btn btn-outline" onclick="closeModal()"><i class="fas fa-comments"></i> Discuss Similar Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="section" id="process" style="background:rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>Development Process</h2><p>Langkah kerja terstruktur untuk hasil terbaik</p></div>
+            <div class="process-grid">
+                <div class="process-step fade-up"><span class="step-num">01</span><h4>Consultation & Planning</h4><p>Memahami kebutuhan bisnis dan merancang solusi digital yang tepat.</p></div>
+                <div class="process-step fade-up"><span class="step-num">02</span><h4>UI/UX Design</h4><p>Membuat desain interface yang modern, profesional, dan user-friendly.</p></div>
+                <div class="process-step fade-up"><span class="step-num">03</span><h4>Development</h4><p>Proses pengembangan website menggunakan teknologi modern dan scalable.</p></div>
+                <div class="process-step fade-up"><span class="step-num">04</span><h4>Testing & Optimization</h4><p>Pengujian performa, keamanan, dan kompatibilitas di berbagai perangkat.</p></div>
+                <div class="process-step fade-up"><span class="step-num">05</span><h4>Launch & Support</h4><p>Website siap online dengan dukungan maintenance dan technical support.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>FAQ</h2><p>Pertanyaan yang sering diajukan</p></div>
+            <div style="max-width:800px;margin:0 auto;" class="fade-up">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)"><span>Berapa lama proses pengerjaan website?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+                    <div class="faq-answer"><p>Durasi pengerjaan bergantung pada kompleksitas project, umumnya antara 1–4 minggu. Landing page bisa selesai dalam 3-7 hari, company profile 2-3 minggu, dan web app custom 3-6 minggu.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)"><span>Apakah website responsive di perangkat mobile?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+                    <div class="faq-answer"><p>Ya, seluruh website dikembangkan dengan desain responsive dan mobile-first. Website akan tampil optimal di desktop, tablet, maupun smartphone dengan berbagai ukuran layar.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)"><span>Apakah tersedia layanan maintenance?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+                    <div class="faq-answer"><p>Ya, kami menyediakan layanan maintenance dan support setelah website selesai. Tersedia paket bulanan atau tahunan sesuai kebutuhan Anda.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)"><span>Teknologi apa yang digunakan?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+                    <div class="faq-answer"><p>Kami menggunakan teknologi modern seperti Laravel, React, Next.js, Vue.js, Tailwind CSS, dan lainnya sesuai kebutuhan project. Teknologi dipilih berdasarkan kompleksitas dan kebutuhan spesifik project Anda.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)"><span>Bagaimana sistem pembayarannya?</span><span class="faq-icon"><i class="fas fa-plus"></i></span></button>
+                    <div class="faq-answer"><p>Sistem pembayaran fleksibel: 50% di awal sebagai DP, dan 50% setelah website selesai & direview. Tersedia transfer bank & e-wallet.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact" style="background:rgba(255,255,255,0.02);">
+        <div class="container">
+            <div class="section-title text-center fade-up"><h2>Get In Touch</h2><p>Mari diskusikan project website Anda</p></div>
+            <div class="contact-wrapper">
+                <div class="contact-info fade-up">
+                    <h3>Hubungi Kami</h3><p>Siap membantu mewujudkan website impian Anda. Pilih metode kontak yang paling nyaman.</p>
+                    <div class="contact-item"><div class="icon"><i class="fab fa-whatsapp"></i></div><div><h4>WhatsApp</h4><p>Respons cepat dalam 1-2 jam<br><a href="https://wa.me/6283804386120?text=Halo%20NexusDev" target="_blank">+62 838-0438-6120</a></p></div></div>
+                    <div class="contact-item"><div class="icon"><i class="fas fa-envelope"></i></div><div><h4>Email</h4><p>Kirim detail project Anda<br><a href="mailto:ainuyqn001@gmail.com">ainuyqn001@gmail.com</a></p></div></div>
+                    <div class="contact-item"><div class="icon"><i class="fas fa-clock"></i></div><div><h4>Jam Kerja</h4><p>Senin - Jumat: 09:00 - 18:00 WIB<br>Sabtu: 10:00 - 15:00 WIB</p></div></div>
+                </div>
+                <div class="contact-form fade-up">
+                    <h3 style="margin-bottom:25px;font-size:1.5rem;">Kirim Pesan</h3>
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                        <div class="form-group"><label for="name"><i class="fas fa-user" style="margin-right:8px;color:var(--primary);"></i>Nama Lengkap</label><input type="text" id="name" placeholder="Masukkan nama Anda" required></div>
+                        <div class="form-group"><label for="email"><i class="fas fa-envelope" style="margin-right:8px;color:var(--primary);"></i>Email</label><input type="email" id="email" placeholder="email@contoh.com" required></div>
+                        <div class="form-group"><label for="service"><i class="fas fa-briefcase" style="margin-right:8px;color:var(--primary);"></i>Jenis Layanan <span style="color:#ef4444;">*</span></label><select id="service" required><option value="">Pilih layanan...</option><option value="Corporate Website">🏢 Corporate Website</option><option value="E-Commerce">🛒 E-Commerce</option><option value="Web Application">⚙️ Web Application</option><option value="Landing Page">🎯 Landing Page</option><option value="UI/UX Design">🎨 UI/UX Design</option><option value="Lainnya">📌 Lainnya</option></select></div>
+                        <div class="form-group"><label for="budget"><i class="fas fa-money-bill-wave" style="margin-right:8px;color:var(--primary);"></i>Estimasi Budget</label><select id="budget"><option value="">Pilih budget (opsional)...</option><option value="< Rp 2jt">🟢 < Rp 2.000.000</option><option value="Rp 2-5jt">🟡 Rp 2jt - 5jt</option><option value="Rp 5-10jt">🟠 Rp 5jt - 10jt</option><option value="> Rp 10jt">🔴 > Rp 10.000.000</option></select></div>
+                        <div class="form-group"><label for="message"><i class="fas fa-comment-alt" style="margin-right:8px;color:var(--primary);"></i>Pesan</label><textarea id="message" placeholder="Ceritakan project Anda..." required></textarea></div>
+                        <button type="submit" class="form-submit" id="submitBtn"><i class="fab fa-whatsapp"></i> Kirim via WhatsApp</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="final-cta"><div class="container"><div class="cta-box fade-up"><h2>Ready To Build Your Professional Website?</h2><p>Tingkatkan kualitas bisnis Anda dengan website modern, profesional, dan berorientasi pada hasil.</p><div class="cta-buttons"><a href="https://wa.me/6283804386120?text=Halo%20NexusDev,%20saya%20mau%20konsultasi" target="_blank" class="btn btn-primary btn-large"><i class="fab fa-whatsapp"></i> Schedule Consultation</a><a href="mailto:ainuyqn001@gmail.com" class="btn btn-outline btn-large"><i class="fas fa-envelope"></i> Contact Us</a></div></div></div></section>
+
+    <footer><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="#" class="logo">Nexus<span>Dev</span></a><p>Professional Web Development Agency</p><a href="mailto:ainuyqn001@gmail.com" class="footer-contact"><i class="fas fa-envelope"></i> ainuyqn001@gmail.com</a><a href="https://wa.me/6283804386120" target="_blank" class="footer-contact"><i class="fab fa-whatsapp"></i> +62 838-0438-6120</a></div><div class="footer-col"><h4>Navigasi</h4><ul><li><a href="#home">Home</a></li><li><a href="#services">Services</a></li><li><a href="#portfolio">Portfolio</a></li><li><a href="#about">About</a></li></ul></div><div class="footer-col"><h4>Layanan</h4><ul><li><a href="#services">Web Development</a></li><li><a href="#services">UI/UX Design</a></li><li><a href="#services">E-Commerce</a></li><li><a href="#services">Maintenance</a></li></ul></div></div><div class="copyright">© 2026 NexusDev. All Rights Reserved.</div></div></footer>
+
+    <a href="https://wa.me/6283804386120?text=Halo%20NexusDev" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i><span class="wa-tooltip">Chat dengan kami!</span></a>
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i><span id="toastMessage">Success!</span></div>
+
+    <script>
+        const projects = [
+            { title: "TechCorp Indonesia", subtitle: "Corporate Company Profile", desc: "Website company profile premium untuk perusahaan teknologi ternama. Dirancang untuk membangun kredibilitas brand dan menampilkan portofolio layanan.", gradient: "linear-gradient(135deg, #1e3a8a, #3b82f6)", icon: "fas fa-building", category: "corporate", badgeClass: "badge-corporate", year: "2025", features: ["Responsive Design (Mobile-First)", "CMS Admin Panel untuk update konten", "Integrasi Google Maps & WhatsApp", "SEO Optimization untuk visibilitas Google"], tech: ["Next.js", "Tailwind CSS", "Vercel"], demo: "#" },
+            { title: "DataFlow Pro", subtitle: "Business Management Dashboard", desc: "Dashboard manajemen bisnis interaktif untuk memantau KPI, analisis data penjualan, dan pengelolaan operasional secara real-time.", gradient: "linear-gradient(135deg, #581c87, #9333ea)", icon: "fas fa-chart-line", category: "webapp", badgeClass: "badge-webapp", year: "2025", features: ["Real-time Data Visualization", "Custom Chart & Graph Components", "User Role Management (Admin/Staff)", "Export Data to PDF/Excel"], tech: ["React", "Node.js", "Chart.js"], demo: "#" },
+            { title: "AeroGear Launch", subtitle: "Product Landing Page", desc: "Landing page produk premium dengan animasi scroll yang memukau, fokus pada konversi penjualan untuk campaign peluncuran produk baru.", gradient: "linear-gradient(135deg, #064e3b, #10b981)", icon: "fas fa-rocket", category: "marketing", badgeClass: "badge-marketing", year: "2024", features: ["Scroll-triggered Animations (GSAP)", "A/B Testing Ready Structure", "Lead Capture Form dengan Validasi", "Fast Loading (< 1.5s)"], tech: ["Vue.js", "GSAP", "Vercel"], demo: "#" },
+            { title: "FashionHub Store", subtitle: "E-Commerce Platform", desc: "Platform toko online fashion modern dengan pengalaman belanja yang seamless. Dilengkapi sistem inventory, payment gateway, dan dashboard admin.", gradient: "linear-gradient(135deg, #831843, #ec4899)", icon: "fas fa-shopping-bag", category: "ecommerce", badgeClass: "badge-ecommerce", year: "2025", features: ["Product Catalog dengan Filter & Search", "Shopping Cart & Checkout Flow", "Payment Gateway Integration (Midtrans)", "Order Management Dashboard"], tech: ["Laravel", "MySQL", "Midtrans"], demo: "#" }
+        ];
+
+        function renderPortfolio(filter) {
+            filter = filter || 'all';
+            const grid = document.getElementById('portfolioGrid');
+            grid.innerHTML = '';
+            projects.forEach(function(p, index) {
+                if (filter !== 'all' && p.category !== filter) return;
+                var card = document.createElement('div');
+                card.className = 'portfolio-card fade-up';
+                card.style.animationDelay = (index * 0.1) + 's';
+                card.onclick = function() { openModal(projects.indexOf(p)); };
+                card.innerHTML = '<div class="portfolio-image"><div class="gradient-bg" style="background: ' + p.gradient + '; position: relative;"><div class="grid-pattern"></div><i class="' + p.icon + '" style="position:relative; z-index:1; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));"></i></div><span class="float-badge ' + p.badgeClass + '">' + p.category.charAt(0).toUpperCase() + p.category.slice(1) + '</span><div class="image-overlay"><div class="view-btn"><i class="fas fa-expand"></i></div><h4 style="font-size:1.2rem; margin-bottom:5px;">' + p.title + '</h4><span style="font-size:0.85rem; color:var(--text-muted);">' + p.subtitle + '</span></div></div><div class="portfolio-content"><h3>' + p.title + '</h3><p>' + p.desc.substring(0, 110) + '...</p><div class="tech-stack">' + p.tech.slice(0, 3).map(function(t) { return '<span class="tech-pill">' + t + '</span>'; }).join('') + '</div><div class="portfolio-footer"><span class="year"><i class="far fa-calendar-alt" style="margin-right:6px;"></i>' + p.year + '</span><div class="actions"><div class="action-btn" onclick="event.stopPropagation(); openModal(' + projects.indexOf(p) + ')"><i class="fas fa-eye"></i></div><a href="' + p.demo + '" class="action-btn" onclick="event.stopPropagation()" target="_blank"><i class="fas fa-external-link-alt"></i></a></div></div></div>';
+                grid.appendChild(card);
+                setTimeout(function() { card.classList.add('visible'); }, 50 + (index * 100));
+            });
+        }
+
+        function filterPortfolio(category, btn) {
+            document.querySelectorAll('.filter-tab').forEach(function(t) { t.classList.remove('active'); });
+            btn.classList.add('active');
+            renderPortfolio(category);
+        }
+
+        function openModal(index) {
+            var p = projects[index];
+            var modal = document.getElementById('modalPreview');
+            modal.style.background = p.gradient;
+            modal.innerHTML = '<div class="grid-pattern"></div><i class="' + p.icon + '" style="position:relative;z-index:1;filter:drop-shadow(0 5px 15px rgba(0,0,0,0.3));"></i><span class="float-badge ' + p.badgeClass + '">' + p.category.charAt(0).toUpperCase() + p.category.slice(1) + '</span>';
+            document.getElementById('modalTitle').textContent = p.subtitle;
+            document.getElementById('modalDesc').textContent = p.desc;
+            document.getElementById('modalFeatures').innerHTML = p.features.map(function(f) { return '<li>' + f + '</li>'; }).join('');
+            document.getElementById('modalTech').innerHTML = p.tech.map(function(t) { return '<span class="tech-pill">' + t + '</span>'; }).join('');
+            document.getElementById('modalDemo').href = p.demo;
+            document.getElementById('projectModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() { 
+            document.getElementById('projectModal').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        document.addEventListener('keydown', function(e) { 
+            if (e.key === 'Escape') closeModal(); 
+        });
+
+        function toggleFaq(btn) {
+            var item = btn.parentElement;
+            var isActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(function(f) { f.classList.remove('active'); });
+            if (!isActive) item.classList.add('active');
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            var btn = document.getElementById('submitBtn');
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var service = document.getElementById('service').value;
+            var budget = document.getElementById('budget').value || 'Belum ditentukan';
+            var message = document.getElementById('message').value.trim();
+
+            if (!service) { showToast('Pilih layanan dulu.', 'error'); return; }
+
+            btn.classList.add('loading'); 
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            
+            var waText = 'Halo NexusDev,\n👤 Nama: ' + name + '\n📧 Email: ' + email + '\n💼 Layanan: ' + service + '\n💰 Budget: ' + budget + '\n📝 Pesan: ' + message;
+            
+            setTimeout(function() {
+                window.open('https://wa.me/6283804386120?text=' + encodeURIComponent(waText), '_blank');
+                showToast('✅ Terkirim! Membuka WhatsApp...', 'success');
+                document.getElementById('contactForm').reset();
+                btn.classList.remove('loading'); 
+                btn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim via WhatsApp';
+            }, 1000);
+        }
+
+        function showToast(msg, type) {
+            type = type || 'success';
+            var t = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = msg;
+            t.className = 'toast ' + type + ' show';
+            t.querySelector('i').className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+            setTimeout(function() { t.classList.remove('show'); }, 4000);
+        }
+
+        function toggleMenu() { document.getElementById('navLinks').classList.toggle('active'); }
+        
+        function setActiveNav(el) { 
+            document.querySelectorAll('.nav-links a').forEach(function(l) { l.classList.remove('active'); }); 
+            el.classList.add('active'); 
+            document.getElementById('navLinks').classList.remove('active'); 
+        }
+
+        window.addEventListener('scroll', function() {
+            var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById('scrollProgress').style.width = ((window.scrollY / h) * 100) + '%';
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) { 
+                if(e.isIntersecting) e.target.classList.add('visible'); 
+            });
+        }, {threshold: 0.15, rootMargin: '0px 0px -50px 0px'});
+        
+        document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+
+        document.querySelectorAll('.service-card').forEach(function(card) {
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                var rotateX = ((y - centerY) / centerY) * -8;
+                var rotateY = ((x - centerX) / centerX) * 8;
+                card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', function() { card.style.transform = ''; });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            var x = (window.innerWidth - e.pageX) / 50;
+            var y = (window.innerHeight - e.pageY) / 50;
+            document.querySelectorAll('.floating-icon').forEach(function(icon, i) {
+                var speed = (i + 1) * 1.5;
+                icon.style.transform = 'translate(' + (x * speed) + 'px, ' + (y * speed) + 'px)';
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+                if(this.getAttribute('href') !== '#') {
+                    e.preventDefault(); 
+                    var t = document.querySelector(this.getAttribute('href'));
+                    if(t) window.scrollTo({top: t.offsetTop - 80, behavior: 'smooth'});
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() { renderPortfolio('all'); });
+    </script>
+</body>
+</html>
